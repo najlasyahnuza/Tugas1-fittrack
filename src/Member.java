@@ -14,6 +14,9 @@ public class Member {
     public static final String PAKET_VIP = "VIP";
 
     private static final String NILAI_BELUM_DIISI = "Belum diisi";
+    private static final String AWALAN_NO_TELEPON = "0";
+    private static final int PANJANG_MIN_NO_TELEPON = 10;
+    private static final String POLA_HANYA_ANGKA = "\\d+";
 
     private String nama = NILAI_BELUM_DIISI;
     private String noTelepon = NILAI_BELUM_DIISI;
@@ -30,12 +33,19 @@ public class Member {
     }
 
     /**
-     * Mengubah nama member.
+     * Mengubah nama member setelah memastikan nama tidak kosong
+     * dan tidak hanya berisi spasi. Jika tidak valid, nama lama
+     * dipertahankan dan alasan penolakan dicetak.
      *
      * @param nama nama lengkap member yang baru
      */
     public void setNama(String nama) {
-        this.nama = nama;
+        if (isNamaValid(nama)) {
+            this.nama = nama.trim();
+        } else {
+            System.out.println("Nama tidak boleh kosong atau hanya berisi spasi. "
+                    + "Nama tetap: " + this.nama);
+        }
     }
 
     /**
@@ -48,12 +58,21 @@ public class Member {
     }
 
     /**
-     * Mengubah nomor telepon member.
+     * Mengubah nomor telepon member setelah melalui validasi format.
+     * Jika tidak valid, nomor lama dipertahankan dan alasan
+     * penolakan dicetak.
      *
-     * @param noTelepon nomor telepon aktif member yang baru
+     * @param noTelepon nomor telepon baru, wajib diawali angka 0,
+     *                  hanya berisi angka, dan minimal 10 digit
      */
     public void setNoTelepon(String noTelepon) {
-        this.noTelepon = noTelepon;
+        if (isNoTeleponValid(noTelepon)) {
+            this.noTelepon = noTelepon;
+        } else {
+            System.out.println("Nomor telepon \"" + noTelepon + "\" ditolak: harus diawali angka "
+                    + AWALAN_NO_TELEPON + ", hanya berisi angka, dan minimal "
+                    + PANJANG_MIN_NO_TELEPON + " digit. Nomor tetap: " + this.noTelepon);
+        }
     }
 
     /**
@@ -90,5 +109,16 @@ public class Member {
      */
     public void setJenisPaket(String jenisPaket) {
         this.jenisPaket = jenisPaket;
+    }
+
+    private boolean isNamaValid(String nama) {
+        return nama != null && !nama.trim().isEmpty();
+    }
+
+    private boolean isNoTeleponValid(String noTelepon) {
+        return noTelepon != null
+                && noTelepon.startsWith(AWALAN_NO_TELEPON)
+                && noTelepon.length() >= PANJANG_MIN_NO_TELEPON
+                && noTelepon.matches(POLA_HANYA_ANGKA);
     }
 }
