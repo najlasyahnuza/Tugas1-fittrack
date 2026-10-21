@@ -17,6 +17,8 @@ public class Member {
     private static final String AWALAN_NO_TELEPON = "0";
     private static final int PANJANG_MIN_NO_TELEPON = 10;
     private static final String POLA_HANYA_ANGKA = "\\d+";
+    private static final String POLA_TANGGAL = "\\d{2}-\\d{2}-\\d{4}";
+    private static final String CONTOH_FORMAT_TANGGAL = "dd-MM-yyyy";
 
     private String nama = NILAI_BELUM_DIISI;
     private String noTelepon = NILAI_BELUM_DIISI;
@@ -85,12 +87,19 @@ public class Member {
     }
 
     /**
-     * Mengubah tanggal daftar member.
+     * Mengubah tanggal daftar setelah memastikan formatnya konsisten
+     * dengan dd-MM-yyyy. Jika tidak valid, tanggal lama dipertahankan
+     * dan alasan penolakan dicetak.
      *
-     * @param tanggalDaftar tanggal daftar baru dalam format dd-MM-yyyy
+     * @param tanggalDaftar tanggal daftar baru, contoh 17-08-2026
      */
     public void setTanggalDaftar(String tanggalDaftar) {
-        this.tanggalDaftar = tanggalDaftar;
+        if (isTanggalDaftarValid(tanggalDaftar)) {
+            this.tanggalDaftar = tanggalDaftar;
+        } else {
+            System.out.println("Tanggal \"" + tanggalDaftar + "\" ditolak: format harus "
+                    + CONTOH_FORMAT_TANGGAL + ". Tanggal tetap: " + this.tanggalDaftar);
+        }
     }
 
     /**
@@ -103,12 +112,20 @@ public class Member {
     }
 
     /**
-     * Mengubah jenis paket keanggotaan member.
+     * Mengubah jenis paket setelah memastikan nilainya salah satu
+     * dari tiga paket yang tersedia. Jika tidak valid, paket lama
+     * dipertahankan dan alasan penolakan dicetak.
      *
      * @param jenisPaket jenis paket baru: Basic, Premium, atau VIP
      */
     public void setJenisPaket(String jenisPaket) {
-        this.jenisPaket = jenisPaket;
+        if (isJenisPaketValid(jenisPaket)) {
+            this.jenisPaket = jenisPaket;
+        } else {
+            System.out.println("Jenis paket \"" + jenisPaket + "\" ditolak: pilihan hanya "
+                    + PAKET_BASIC + ", " + PAKET_PREMIUM + ", atau " + PAKET_VIP
+                    + ". Paket tetap: " + this.jenisPaket);
+        }
     }
 
     private boolean isNamaValid(String nama) {
@@ -120,5 +137,15 @@ public class Member {
                 && noTelepon.startsWith(AWALAN_NO_TELEPON)
                 && noTelepon.length() >= PANJANG_MIN_NO_TELEPON
                 && noTelepon.matches(POLA_HANYA_ANGKA);
+    }
+
+    private boolean isTanggalDaftarValid(String tanggalDaftar) {
+        return tanggalDaftar != null && tanggalDaftar.matches(POLA_TANGGAL);
+    }
+
+    private boolean isJenisPaketValid(String jenisPaket) {
+        return PAKET_BASIC.equals(jenisPaket)
+                || PAKET_PREMIUM.equals(jenisPaket)
+                || PAKET_VIP.equals(jenisPaket);
     }
 }
