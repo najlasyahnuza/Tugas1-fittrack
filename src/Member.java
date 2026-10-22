@@ -25,6 +25,35 @@ public class Member {
     private String tanggalDaftar = NILAI_BELUM_DIISI;
     private String jenisPaket = PAKET_BASIC;
 
+
+    
+    /**
+     * Membuat member baru dengan data lengkap. Setiap nilai diisi
+     * lewat setter sehingga validasi hanya ditulis di satu tempat.
+     *
+     * @param nama          nama lengkap member
+     * @param noTelepon     nomor telepon aktif member
+     * @param tanggalDaftar tanggal pertama mendaftar, format dd-MM-yyyy
+     * @param jenisPaket    jenis paket: Basic, Premium, atau VIP
+     */
+    public Member(String nama, String noTelepon, String tanggalDaftar, String jenisPaket) {
+        setNama(nama);
+        setNoTelepon(noTelepon);
+        setTanggalDaftar(tanggalDaftar);
+        setJenisPaket(jenisPaket);
+    }
+
+    /**
+     * Membuat member baru tanpa menyebutkan paket. Jenis paket
+     * otomatis diisi Basic.
+     *
+     * @param nama          nama lengkap member
+     * @param noTelepon     nomor telepon aktif member
+     * @param tanggalDaftar tanggal pertama mendaftar, format dd-MM-yyyy
+     */
+    public Member(String nama, String noTelepon, String tanggalDaftar) {
+        this(nama, noTelepon, tanggalDaftar, PAKET_BASIC);
+    }
     /**
      * Mengembalikan nama lengkap member.
      *
