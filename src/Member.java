@@ -44,6 +44,19 @@ public class Member {
     }
 
     /**
+     * Mengembalikan data member dalam bentuk teks berlabel.
+     *
+     * @return representasi data member yang mudah dibaca
+     */
+    @Override
+    public String toString() {
+        return "Nama           : " + nama + "\n"
+                + "No. Telepon    : " + noTelepon + "\n"
+                + "Tanggal Daftar : " + tanggalDaftar + "\n"
+                + "Jenis Paket    : " + jenisPaket;
+    }
+
+    /**
      * Membuat member baru tanpa menyebutkan paket. Jenis paket
      * otomatis diisi Basic.
      *
