@@ -2,7 +2,7 @@
 
 Nama: Najla Putri Syahnuza
 NPM: 250810701100115
-Kelas: A
+Praktikum: Pemrograman Berorientasi Objek
 
 ## Deskripsi
 Program ini untuk mencatat data member gym FitTrack. Setiap data yang dimasukkan dicek dulu, jadi kalau ada data yang salah (misalnya nomor telepon ada hurufnya atau paket yang tidak tersedia), data itu ditolak tanpa membuat program berhenti.
@@ -24,12 +24,14 @@ Program ini untuk mencatat data member gym FitTrack. Setiap data yang dimasukkan
 
 ## Struktur
 ```
-src/
-  Member.java
-  TesFitTrack.java
-screenshot/output.png
-.gitignore
-README.md
+Tugas1-fittrack/
+  src/
+    Member.java
+    TesFitTrack.java
+  screenshot/
+    output.png
+  .gitignore
+  README.md
 ```
 
 ## Prasyarat
@@ -47,6 +49,7 @@ java -cp out TesFitTrack
 ## Output
 Member 1-3 data normal, member 4-5 dan uji setter nomor telepon menunjukkan data yang ditolak.
 
+![output](screenshot/output.png)
 
 ## Nilai Default
 - nama, noTelepon, tanggalDaftar: "Belum diisi", supaya kelihatan datanya belum lengkap dan tidak muncul null waktu dicetak
