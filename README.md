@@ -10,7 +10,7 @@ Program ini untuk mencatat data member gym FitTrack. Setiap data yang dimasukkan
 ## Fitur
 - Menambah member dengan nama, no telepon, tanggal daftar, dan jenis paket
 - Menambah member tanpa pilih paket, otomatis jadi Basic
-- Menolak nama kosong, no telepon yang salah format, tanggal yang bukan dd-MM-yyyy, dan paket selain Basic/Premium/VIP
+- Menolak nama kosong, no telepon yang salah format, tanggal yang bukan dd-MM-yyyy atau tidak ada di kalender (misalnya 31-02-2026), dan paket selain Basic/Premium/VIP
 - Menampilkan alasan kalau data ditolak
 - Menampilkan semua data member
 
@@ -58,6 +58,6 @@ Member 1-3 data normal, member 4-5 dan uji setter nomor telepon menunjukkan data
 Nilai default ditulis langsung di atribut, jadi kalau setter menolak data di constructor, atributnya tetap berisi nilai ini.
 
 ## Batasan
-- Tanggal cuma dicek formatnya, jadi tanggal seperti 31-02-2026 masih diterima
+- Tanggal sudah dicek apakah ada di kalender, tapi belum dicek apakah tanggalnya di masa depan
 - Data member belum disimpan ke file, hilang setelah program selesai
 - Data masih ditulis di kode, belum ada input dari pengguna

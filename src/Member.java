@@ -1,3 +1,8 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
+
 /**
  * Merepresentasikan satu member yang terdaftar di gym FitTrack.
  * Class ini menyimpan data pribadi dan jenis paket keanggotaan member.
@@ -19,14 +24,14 @@ public class Member {
     private static final String POLA_HANYA_ANGKA = "\\d+";
     private static final String POLA_TANGGAL = "\\d{2}-\\d{2}-\\d{4}";
     private static final String CONTOH_FORMAT_TANGGAL = "dd-MM-yyyy";
+    private static final DateTimeFormatter FORMAT_TANGGAL =
+            DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
 
     private String nama = NILAI_BELUM_DIISI;
     private String noTelepon = NILAI_BELUM_DIISI;
     private String tanggalDaftar = NILAI_BELUM_DIISI;
     private String jenisPaket = PAKET_BASIC;
 
-
-    
     /**
      * Membuat member baru dengan data lengkap. Setiap nilai diisi
      * lewat setter sehingga validasi hanya ditulis di satu tempat.
@@ -44,19 +49,6 @@ public class Member {
     }
 
     /**
-     * Mengembalikan data member dalam bentuk teks berlabel.
-     *
-     * @return representasi data member yang mudah dibaca
-     */
-    @Override
-    public String toString() {
-        return "Nama           : " + nama + "\n"
-                + "No. Telepon    : " + noTelepon + "\n"
-                + "Tanggal Daftar : " + tanggalDaftar + "\n"
-                + "Jenis Paket    : " + jenisPaket;
-    }
-
-    /**
      * Membuat member baru tanpa menyebutkan paket. Jenis paket
      * otomatis diisi Basic.
      *
@@ -67,6 +59,7 @@ public class Member {
     public Member(String nama, String noTelepon, String tanggalDaftar) {
         this(nama, noTelepon, tanggalDaftar, PAKET_BASIC);
     }
+
     /**
      * Mengembalikan nama lengkap member.
      *
@@ -129,9 +122,9 @@ public class Member {
     }
 
     /**
-     * Mengubah tanggal daftar setelah memastikan formatnya konsisten
-     * dengan dd-MM-yyyy. Jika tidak valid, tanggal lama dipertahankan
-     * dan alasan penolakan dicetak.
+     * Mengubah tanggal daftar setelah memastikan formatnya dd-MM-yyyy
+     * dan tanggalnya benar-benar ada di kalender. Jika tidak valid,
+     * tanggal lama dipertahankan dan alasan penolakan dicetak.
      *
      * @param tanggalDaftar tanggal daftar baru, contoh 17-08-2026
      */
@@ -140,7 +133,8 @@ public class Member {
             this.tanggalDaftar = tanggalDaftar;
         } else {
             System.out.println("Tanggal \"" + tanggalDaftar + "\" ditolak: format harus "
-                    + CONTOH_FORMAT_TANGGAL + ". Tanggal tetap: " + this.tanggalDaftar);
+                    + CONTOH_FORMAT_TANGGAL + " dan tanggalnya harus ada di kalender. "
+                    + "Tanggal tetap: " + this.tanggalDaftar);
         }
     }
 
@@ -170,6 +164,19 @@ public class Member {
         }
     }
 
+    /**
+     * Mengembalikan data member dalam bentuk teks berlabel.
+     *
+     * @return representasi data member yang mudah dibaca
+     */
+    @Override
+    public String toString() {
+        return "Nama           : " + nama + "\n"
+                + "No. Telepon    : " + noTelepon + "\n"
+                + "Tanggal Daftar : " + tanggalDaftar + "\n"
+                + "Jenis Paket    : " + jenisPaket;
+    }
+
     private boolean isNamaValid(String nama) {
         return nama != null && !nama.trim().isEmpty();
     }
@@ -182,7 +189,15 @@ public class Member {
     }
 
     private boolean isTanggalDaftarValid(String tanggalDaftar) {
-        return tanggalDaftar != null && tanggalDaftar.matches(POLA_TANGGAL);
+        if (tanggalDaftar == null || !tanggalDaftar.matches(POLA_TANGGAL)) {
+            return false;
+        }
+        try {
+            LocalDate.parse(tanggalDaftar, FORMAT_TANGGAL);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     private boolean isJenisPaketValid(String jenisPaket) {
