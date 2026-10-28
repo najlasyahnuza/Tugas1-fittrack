@@ -29,12 +29,13 @@ public class TesFitTrack {
      * @return array berisi seluruh member yang dibuat
      */
     private static Member[] buatDaftarMember() {
-        Member[] daftarMember = new Member[5];
+        Member[] daftarMember = new Member[6];
         daftarMember[0] = new Member("Andi Pratama", "081234567890", "17-08-2026", Member.PAKET_BASIC);
         daftarMember[1] = new Member("Siti Rahmawati", "085211223344", "20-08-2026", Member.PAKET_PREMIUM);
         daftarMember[2] = new Member("Budi Santoso", "081398765432", "01-09-2026", Member.PAKET_VIP);
         daftarMember[3] = new Member("Dewi Lestari", "6281234", "05-09-2026");
         daftarMember[4] = new Member("   ", "0812345678", "2026/09/10", "Gold");
+        daftarMember[5] = new Member("Rina Marlina", "081277788899", "31-02-2026", Member.PAKET_PREMIUM);
         return daftarMember;
     }
 
