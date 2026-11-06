@@ -38,8 +38,8 @@ Tugas1-fittrack/
 ```
 
 ## Prasyarat
-- JDK (isi versi, contoh: 21)
-- IntelliJ IDEA (disarankan)
+- JDK 21 (Temurin 21.0.12)
+- Visual Studio Code dengan Extension Pack for Java (dipakai saat mengerjakan), atau IntelliJ IDEA
 
 ## Cara Menjalankan
 IntelliJ: buka folder project, buka `src/TesFitTrack.java`, lalu klik Run di method main.
